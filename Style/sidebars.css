@@ -1,0 +1,120 @@
+/* ======== Left Sidebar ======== */
+
+/* left-sidebar refers to the left-sidebar section */
+#left-sidebar 
+{
+	float: left;
+	height: 650px;
+	width: 300px;
+}
+
+/* wrapper refers to the left-sidebar content */
+#wrapper
+{
+	display: none;
+	margin: 10px auto;
+	text-align: left;
+	width: 250px;
+}
+#wrapper dl
+{
+	background: #E0E0E0;
+	font-size: medium;
+}
+#wrapper dt
+{
+	background: #C0C0C0;
+	border: 1px solid #808080;
+	color: #808080;
+	padding: 5px 20px;
+}
+#wrapper dt a
+{
+	color: white;
+	text-decoration: none;
+}
+#wrapper ul
+{
+	color: #808080;
+	list-style: none;
+	padding: 5px;
+}
+#wrapper li
+{
+	margin-left: 20px;
+}
+
+/* ======== Right Sidebar ======== */
+/* right-sidebar refers to the right-sidebar section */
+#right-sidebar
+{
+	float: left;
+	height: 650px;
+	width: 300px;
+}
+/* wrapper2 refers to the right-sidebar content */
+#wrapper2
+{
+	display: none;
+	width: 250px;
+}
+
+#wrapper2-scroll {
+	height:520px;
+	overflow:auto;  
+}
+
+#wrapper2 dl
+{
+	background: #E0E0E0;
+	font-size: medium;
+}
+#wrapper2 dt
+{
+	background: #C0C0C0;
+	border: 1px solid #808080;
+	color: #808080;
+	padding: 5px 20px;
+}
+#wrapper2 dt a
+{
+	color: white;
+	text-decoration: none;
+}
+#wrapper2 ul
+{
+	color: #808080;
+	list-style: none;
+	padding: 5px;
+}
+#wrapper2 li
+{
+	margin-left: 20px;
+}
+#wrapper2_link 
+{
+	color:#808080;
+}
+#save {
+	background-color: #C0C0C0;
+	padding: 10px;
+	text-align:left;
+	border: 1px solid #808080;
+	margin-top:10px;
+}
+#save_label {
+	color: #808080;
+}
+#save_input_state {
+	background-color: #004C99;
+	border:#004C99;
+	color:white;
+	font-weight: normal;
+	font-size: small;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 10px;
+}	
+#text_input_state {
+	background-color:#C0C0C0;
+	color:#808080;
+}

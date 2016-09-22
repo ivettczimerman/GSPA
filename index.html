@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+<!--   Library used for the style of some buttons and input fields  -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!--  Library used for the icons in the menu and in the button groups  -->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<!--  Style  -->
+<link href="Style/page_content.css" rel="stylesheet" type="text/css">
+<link href="Style/header.css" rel="stylesheet" type="text/css">
+<link href="Style/sidebars.css" rel="stylesheet" type="text/css">
+<link href="Style/login_register.css" rel="stylesheet" type="text/css">
+<link href="Style/set_inputs.css" rel="stylesheet" type="text/css">
+<link href="Style/home.css" rel="stylesheet" type="text/css">
+
+<!--  Controllers  -->
+<script src="Scripts/controller.js"></script>
+</head>
+<body>
+    <div id="pageBox" ng-controller="AppCtrl">
+        <!--================== HEADER ================== -->
+        <div id="header">
+            <!--<img src="Pictures/logo.png" id="logoimg" alt="Logo">-->
+		
+			<a href="http://www.tba.nl"><img id="logoimg" alt="Logo" src="Pictures/logo.png"></a>
+            <label style="margin-left:350px">Graphical Static Performance Analyzer</label>
+			<h2 id ="subtitle">for container terminals</h2>
+            <!--================== MENU ================== -->
+            <div id="menu"> 
+				<!-- We need div menu because the log out button is part of it but not of navmenu -->
+                <ul id="navmenu">
+                    <li >
+                        <a href="#" ng-click="home()" class="menu_buttons"><i class="fa fa-home" id="homeButton">
+                            </i> Home</a>
+                    </li>
+                    <!-- for the load and save buttons we used an id in order to disable it for the guest -->
+                    <li><a href="#" id="load_button" ng-click="Load()" class="menu_buttons"><i class="fa fa-folder-open"></i> Load Input States</a>
+                    </li>
+                    <li><a href="#" id="save_button" ng-click="showSave()" class="menu_buttons"><i class="fa fa-save"></i> Save Input States</a>
+                    </li>
+                    <!-- the caret represents the down arrow -->
+                    <li><a href="#" class="menu_buttons"><i class="fa fa-cog"></i> Set Inputs<span class="caret"></span></a>
+                        <ul class="submenu">
+                            <li><a href="#" ng-click="traffic()"> Traffic characteristics</a>
+                            </li>
+                            <li><a href="#" ng-click="stack()"> Stack characteristics</a>
+                            </li>
+                            <li><a href="#" ng-click="ta_depth()"> Terminal area- depth</a>
+                            </li>
+                            <li><a href="#" ng-click="fixed_inputs()" style='visibility: {{showAdminInput}}'> Fixed inputs</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+                <button type="button" class="btn btn-primary" ng-click="logout()" ng-model="username" id="logout_btn"><i class="fa fa-user"></i> Log out, {{username}}</button>
+            </div>
+            <br>
+        </div>
+
+        <!--================== LEFT SIDEBAR ================== -->
+        <div id="left-sidebar">
+
+            <!--The wrapper div refers to the content of the left-sidebar -->
+            <div id="wrapper">
+                <dl>
+                    <dt>Traffic characteristics</dt>
+                    <dd>
+                        <ul>
+                            <li> Transhipment (%): {{transhipment}} </li>
+                            <li> Average dwell (days): {{average_dwell}}</li>
+                            <li> Peak factor (net bx/h): {{peak_factor}}</li>
+                            <li> TEU factor: {{teu_factor}}</li>
+                            <li> Number of QC's: {{number_qc}}</li>
+                            <li> Waterside peak: {{waterside_peak}}</li>
+                            <li> Landside peak: {{landside_peak}}</li>
+
+                        </ul>
+                    </dd>
+
+                    <dt>Stack characteristics</dt>
+                    <dd>
+                        <ul>
+                            <li> Reference width (m): {{ref_widthm}}</li>
+                            <li> Reference width (bx): {{ref_widthb}}</li>
+                            <li> Capacity WS per module: {{capacity_ws}}</li>
+                            <li> Capacity LS per module: {{capacity_ls}}</li>
+                            <li> Height (bx): {{height}}</li>
+                            <li> Maximum occupancy: {{max_occ}}</li>
+                            <li> Minimum width allowed (bx): {{min_width_allowed}}</li>
+                            <li> Maximum width allowed (bx): {{max_width_allowed}}</li>
+                        </ul>
+                    </dd>
+
+                    <dt>Terminal area- width</dt>
+                    <dd>
+                        <ul>
+                            <li> Quay length (m): {{quay_length}}</li>
+                            <li> Access left: {{access_left}}</li>
+                            <li> Access right: {{access_right}}</li>
+                        </ul>
+                    </dd>
+
+                    <dt>Terminal area- depth</dt>
+                    <dd>
+                        <ul>
+                            <li> Total depth: {{total_depth}}</li>
+                            <li> Apron depth: {{apron_depth}}</li>
+                            <li> Landside depth: {{landside_depth}}</li>
+                        </ul>
+                    </dd>
+                    </dl>
+            </div>
+        </div>
+
+        <!--================== BODY CONTENT ================== -->
+        <div id="body-content">
+
+            <!--================== MESSAGES  ===================-->
+            <div id="register_smessage" class="smessages">
+                <p>You have successfully registered. Please log in with your new username and password.</p>
+                <br>
+            </div>
+
+            <div id="register_umessage" class="umessages">
+                <p>Unsuccessful Registration. Please fill in all marked fields.</p>
+                <br>
+            </div>
+
+			<div id="register_umessage1" class="umessages">
+				<p>Unsuccessful Registration. Please enter a valid email address.</p>
+				<br>
+			</div>
+			
+			<div id="register_umessage2" class="umessages">
+				<p>Unsuccessful Registration. Password doesn't match confirmation.</p>
+				<br>
+			</div>
+				
+			<div id="register_umessage3" class="umessages">
+				<p>Unsuccessful Registration. Username already exists.</p>
+				<br>
+			</div>	
+				
+			<div id="login_umessage" class="umessages">
+                <p>The username or password is incorrect.</p>
+                <br>
+            </div>
+
+            <!--================== SCENARIO CHECKBOXES ================== -->
+            <div id="scenario_box">
+                <h2 id="select_scenario_title">Select Scenario Variables</h2>
+                <table  id="scenario_checkbox_table" >
+                    <tr>
+                        <th>Traffic characteristics</th>
+                        <th>Stack characteristics</th>
+                        <th>Terminal area- depth</th>
+                    </tr>
+
+                    <tr>
+                        <td>Transhipment:
+                            <input type="checkbox" id="checkbx.transhipment">
+                        </td>
+                        <td>Reference width (m):
+                            <input type="checkbox" id="checkbx.ref_widthm">
+                        </td>
+                        <td>Apron depth:
+                            <input type="checkbox" id="checkbx.apron_depth">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Average dwell (days):
+                            <input type="checkbox" id="checkbx.average_dwell">
+                        </td>
+                        <td>Reference width (bx):
+                            <input type="checkbox" id="checkbx.ref_widthb">
+                        </td>
+                        <td>Landside depth:
+                            <input type="checkbox" id="checkbx.landside_depth">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Peak factor (net bx/ h):
+                            <input type="checkbox" id="checkbx.peak_factor">
+                        </td>
+                        <td>Capacity WS per module:
+                            <input type="checkbox" id="checkbx.capacity_ws">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>TEU factor:
+                            <input type="checkbox" id="checkbx.teu_factor">
+                        </td>
+                        <td>Cap LS per module:
+                            <input type="checkbox" id="checkbx.capacity_ls">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Number of QC's:
+                            <input type="checkbox" id="checkbx.number_qc">
+                        </td>
+                        <td>Height (bx):
+                            <input type="checkbox" id="checkbx.height">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Waterside peak:
+                            <input type="checkbox" id="checkbx.waterside_peak">
+                        </td>
+                        <td>Maximum occupancy:
+                            <input type="checkbox" id="checkbx.max_occ">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Landside peak:
+                            <input type="checkbox" id="checkbx.landside_peak">
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <button id="apply_scenario_checkboxes" ng-click="apply_scenario()">
+                    <span></span> Apply
+                </button>
+
+
+            </div>
+
+            <!--================== LOGIN ================== -->
+                <form name="loginForm">
+                        <div id="login_box">
+                            <h2 class="title_login_register">Login</h2>
+                            <br>
+                            <table class="table_login_register">
+                                <tr>
+                                    <td>
+                                        <label>Username:</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="username" placeholder="Username">
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Password:</label>
+                                    </td>
+                                    <td>
+                                        <input class="inputs_register_login" type="password" ng-model="password" placeholder="Password">
+                                    </td>
+                                </tr>
+                                <br>
+                                <tr>
+                                    <td> </td>
+                                    <td>
+                                        <br>
+                                        <button ng-click="login()" class="button_login_register">Sign in</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br><a href="#" id="log_in_guest" ng-click="guest()"><b>Log in as Guest</b></a>
+                                    </td>
+                                    <td> </td>
+                            </table>
+						</div>
+                    <form>
+
+            <!--================== REGISTER ================== -->
+            
+                <form name="registerForm">
+                        <div id="register_box">
+                            <h2 class="title_login_register">Register</h2>
+                            <br>
+                            <table class="table_login_register">
+                                <tr>
+                                    <td>
+                                        <label>First Name:</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="firstName" placeholder="First Name">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Last Name:</label>
+                                    </td>
+                                    <td>
+                                        <input class="inputs_register_login" type="text" ng-model="lastName" placeholder="Last Name">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Email*:</label>
+                                    </td>
+                                    <td>
+                                        <input class="inputs_register_login" type="text" ng-model="email" placeholder="Email">
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Username*:</label>
+                                    </td>
+                                    <td>
+                                        <input class="inputs_register_login" type="text" ng-model="rusername" placeholder="Username">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Password*:</label>
+                                    </td>
+                                    <td>
+                                        <input class="inputs_register_login" type="password" ng-model="rpassword" placeholder="Password">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Confirm Password*:</label>
+                                    </td>
+                                    <td>
+                                        <input class="inputs_register_login" type="password" ng-model="rconfirmPassword" placeholder="Confirm Password">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> </td>
+                                    <td>
+                                        <br>
+                                        <button ng-click="register()" class="button_login_register">Sign up</button>	
+									</td>
+                                </tr>
+                            </table>
+                        </div>
+                </form>
+
+
+            <!--================== HOME	================== -->
+            <div id="home" >
+                <br>
+				<!-- Buttons from scenario table-->
+                <div id="btn-grp1" class="btn-group">
+                    <button type="button" ng-click="select_scenario()" class="btn btn-primary" id="buttons"><i class="fa fa-check-square"></i> Select Scenario Variable</button>
+                    <button type="button" ng-click="selectRow()" class="btn btn-primary" id="buttons"><i class="fa fa-edit"></i> Select row</button>
+                    <button type="button" ng-click="removeRow()" class="btn btn-primary" id="buttons"><i class="fa fa-trash"></i> Remove</button>
+                    <button type="button" ng-click="addRow()" class="btn btn-primary" id="buttons"><i class="fa fa-plus"></i> Add row</button>
+                </div>
+                <br>
+			<div id="table-scroll">
+                <table id="scenario-table">
+					<thead>
+                    <tr>
+                        <th></th>
+						<!-- The following repeat will put all the checked boxes' names as a table heading -->
+                        <th ng-repeat="checkedX in checkedSc">{{checkedX.name}}</th>
+                    </tr>
+					</thead>
+					
+                    <tr ng-repeat="row in rows">
+						<td width=5>
+							<!-- The user inserts the scenario values in the input fields of the scenario table-->
+                            <input type="checkbox" id="chartCheckBox.{{row.rowNumber}}" style='visibility: {{selectRowVisibility}}'>
+                        </td>
+                        <td ng-repeat="column in checkedSc">
+							<!-- The user inserts the scenario values in the input fields of the scenario table-->
+                            <input id="scenario_input" type="text"  ng-model="newObject[row.rowNumber][column.name]"  name="scenarioRow"/>
+                        </td>
+
+                    </tr>
+					
+                </table>
+			</div>
+                <br>
+				<!-- Buttons from output table-->
+                <div id="btn-grp2" class="btn-group">
+                    <button type="button" ng-click="generateTable()" class="btn btn-primary" id="buttons"><i class="fa fa-table"></i> Generate table</button>
+                    <button type="button" ng-click="generateChart()" class="btn btn-primary" id="buttons" style='visibility: {{chartButtonVisibility}}'><i class="fa fa-bar-chart"></i> Generate chart</button>
+					<button type="button" ng-click="exportCSV()" class="btn btn-primary" id="buttons" style='visibility: {{chartButtonVisibility}}'><i class="fa fa-bar-chart"></i> Export to CSV</button>
+  			    </div>
+
+			<div id="table-scroll1">
+                <table id="output-table" >
+				<thead>
+                    <tr>
+						<th></th>
+                        <th>Configuration/ Scenario</th>
+                        <th>Width (bx)</th>
+                        <th>Number of modules</th>
+                        <th>Storage</th>
+                        <th>Capacity waterside</th>
+                        <th>Capacity landside</th>
+                        <th>Capacity</th>
+                    </tr>
+				</thead>
+					<!-- Takes the values from the JSONoutputs and inserts them in the output table in the corresponding cells. 
+						 The number of rows is equal to the number of the generated scenarios*(max_width-min_width +1)-->
+                    <tr ng-repeat="scenario in JSONoutputs">
+						<td><input type="checkbox" id="tableRow.{{scenario.id}}" style='visibility: {{chartButtonVisibility}}'></td>
+                        <td>{{scenario.name}}</td>
+                        <td>{{scenario.width}}</td>
+                        <td>{{scenario.maxModules}}</td>
+                        <td id="storageCapacityRow.{{scenario.id}}">{{scenario.storageCapacity}}</td>
+                        <td id="watersideCapacityRow.{{scenario.id}}">{{scenario.CapacityWaterside}}</td>
+                        <td id="landsideCapacityRow.{{scenario.id}}">{{scenario.CapacityLandside}}</td>
+                        <td id="CapacityRow.{{scenario.id}}">{{scenario.Capacity}}</td>
+                    </tr>
+                </table>
+			</div>	
+            </div>
+
+            <!--================== SET INPUTS ================== -->
+			<!-- The table that contains the inputs to be set by the user, namely traffic characteristics, stack characteristics and terminal area - depth 
+				 and the fixed characteristics by the admin. -->
+            <div id="input_table_section" >
+				<!-- The title takes the values Traffic Characteristics, Stack Characteristics, Terminal Area - Depth and Fixed Characteristics, one at a time, 
+					 according to the selected category from the Menu.--> 
+                <h2 id="input_table_title">{{titleBody}}</h2>
+                <table id="input_table">
+					<!-- The visibility variable is used in order to display or to hide a row from the table, because we don't have the same number of inputs for each category,
+						 but we use the same table.(Traffic Characteristics - , Stack Characteristics - , Terminal Area - Depth -  , Fixed Characteristics - )-->
+                    <tr style='visibility: {{visibility1}}'>
+                        <td>
+                            <label class="inputs" ng-model="l1">{{l1}}</label>
+                        </td>
+                        <td>
+                            <input type="number" step="0.0001" id="input1" ng-model="input1" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="inputs">
+                        </td>
+                    </tr>
+                    <tr style='visibility: {{visibility2}}'>
+                        <td>
+                            <label class="inputs" ng-model="l2">{{l2}}</label>
+                        </td>
+                        <td>
+                            <input type="number" step="0.0001" id="input2" ng-model="input2" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="inputs">
+                        </td>
+                    </tr>
+                    <tr style='visibility: {{visibility3}}'>
+                        <td>
+                            <label class="inputs" ng-model="l3">{{l3}}</label>
+                        </td>
+                        <td>
+                            <input type="number" step="0.0001" id="input3" ng-model="input3" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="inputs">
+                        </td>
+
+                    </tr>
+                    <tr style='visibility: {{visibility4}}'>
+                        <td>
+                            <label class="inputs" ng-model="l4">{{l4}}</label>
+                        </td>
+                        <td>
+                            <input type="number" step="0.0001" id="input4" ng-model="input4" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="inputs">
+                        </td>
+                    </tr>
+                    <tr style='visibility: {{visibility5}}'>
+                        <td>
+                            <label class="inputs" ng-model="l5">{{l5}}</label>
+                        </td>
+                        <td>
+                            <input type="number" step="0.0001" id="input5" ng-model="input5" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="inputs">
+                        </td>
+                    </tr>
+
+                    <tr style='visibility: {{visibility6}}'>
+                        <td>
+                            <label class="inputs" ng-model="l6">{{l6}}</label>
+                        </td>
+                        <td>
+                            <input type="number" step="0.0001" id="input6" ng-model="input6" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="inputs">
+                        </td>
+                    </tr>
+
+                    <tr style='visibility: {{visibility7}}'>
+                        <td>
+                            <label class="inputs" ng-model="l7">{{l7}}</label>
+                        </td>
+                        <td>
+                            <input type="number" step="0.0001" id="input7" ng-model="input7" ng-pattern="/^[0-9]+(\.[0-9]{1,4})?$/" class="inputs">
+                        </td>
+					</tr>
+					<tr>
+						<td>
+							<br>
+						</td>
+						<td>
+							<br>
+						</td>	
+                    </tr>	
+                </table>
+                <br>
+                <button type="button" class="btn btn-primary" ng-click="apply()" id="apply_input_values"> Apply</button>
+            </div>
+        </div>
+        <!--================== RIGHT SIDEBAR ================== -->
+        <div id="right-sidebar">
+            <div id="wrapper2" >
+				<div id="wrapper2-scroll" >
+                <dl>
+                    <dt>Choose available scenario: </dt>
+						<dd>
+							<ul id="top4list" ng-repeat="load in loads">
+									<a href id="wrapper2_link"><li>{{load.configname}}</li></a>
+							</ul>
+                    </dd>
+                </dl>
+            </div>
+			</div>
+				<div id="save" style='display: {{saveText}}'>
+					<label class="inputs" id="save_label">Save inputs states as:</label>
+					<input type="text"  ng-model="saveName"  id="text_input_state">
+					<button ng-click="Save()" type="button" class="btn btn-primary" id="save_input_state"><i class="fa fa-save"></i> Save</button>
+				</div>
+				<div id="overwriteMessage" class="smessages" style="display:none;width:300px;margin-top:20px;margin-left:0px">
+                <p>The config has been overwrited successfully!</p>
+				</div>
+        </div>
+
+
+        <!--================== FOOTER ================== -->
+        <div id="footer" >
+            <hr> Ady Endre 2 | 440061 Satu Mare | Romania | info@tba.nl | Tel: +40 261 710 500
+        </div>
+
+    </div>
+</body>
+
+</html>

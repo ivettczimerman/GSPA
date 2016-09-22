@@ -1,0 +1,174 @@
+/* ======== Home ======== */
+#home
+{
+	display: none;
+}
+#buttons
+{
+	background-color: #004C99;
+	border: 1px solid white;
+	font-size: 60%;
+}
+#btn-grp1
+{
+	margin-left: 30px;
+	margin-top: 10px;
+}
+#btn-grp2
+{
+	margin-left: 30px;
+}
+
+/* ======== Scenario Table ======== */
+#scenario_input
+{
+	background-color: #C0C0C0;
+}
+#scenario-table
+{	
+	border-collapse: collapse;
+	font-size: small;
+	width: 50%;
+}
+
+
+#scenario-table td, #scenario-table th
+{
+	border: 1px solid #808080;
+	font-size: 1em;
+	padding: 3px 7px 2px 7px;
+}
+#scenario-table th
+{
+	background-color: #808080;
+	color: white;
+	font-size: 1.1em;
+	padding-bottom: 4px;
+	padding-top: 5px;
+	text-align: center;
+}
+#scenario-table td
+{
+	background-color: #C0C0C0;
+	color: #000000;
+}
+
+#table-wrapper {
+  position:relative;
+    margin-top: 30px;
+}
+#table-scroll {
+  height:155px;
+  overflow:auto; 
+  margin-top:20px;
+  margin-left:30px;
+  margin-right:30px;
+  
+}
+
+#table-wrapper table thead th .text {
+  position:absolute;   
+  top:-20px;
+  z-index:2;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+}
+
+/* ======== Output Table ======== */
+#output-table
+{
+	border-collapse: collapse;
+	font-size: small;
+	width: 923px;
+}
+#output-table td, #output-table th
+{
+	border: 1px solid #808080;
+	font-size: 1em;
+	padding: 3px 7px 2px 7px;
+}
+#output-table th
+{
+	background-color: #808080;
+	color: white;
+	font-size: 1.1em;
+	padding-bottom: 4px;
+	padding-top: 5px;
+	text-align: left;
+}
+#output-table td
+{
+	background-color: #C0C0C0;
+	color: #000000;
+}
+
+#table-wrapper1 {
+	position:relative;
+}
+
+#table-scroll1 {
+	height:340px;
+	overflow:auto; 
+	margin-top:20px;	
+	margin-left:30px;
+	margin-right:30px;
+}
+
+#table-wrapper1 table thead th .text {
+	position:fixed;   
+	top:-20px;
+	z-index:2;
+	height:20px;
+	width:35%;
+	border:1px solid red;
+}
+
+
+/* ======== Select scenario variables ======== */
+#scenario_box
+{
+	display: none;
+}
+#select_scenario_title
+{
+	color: #004C99;
+	margin-left: 30px;
+	margin-top: 30px;
+	text-align: left;
+}
+
+#scenario_checkbox_table
+{
+	border-collapse: collapse;
+	font-size: small;
+	margin-left: 30px;
+	margin-top: 40px;
+	width: 70%;
+}
+#scenario_checkbox_table th
+{
+	background-color: #808080;
+	color: white;
+	font-size: 1.4em;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-top: 5px;
+	text-align: left;
+}
+#scenario_checkbox_table td
+{
+	background-color: #E0E0E0;
+	font-size: 1.2em;
+	padding-left: 6px;
+	text-align: left;
+}
+#apply_scenario_checkboxes
+{
+	background-color: #004C99;
+	color: white;
+	float: center;
+	font-size: 100%;
+	margin-left: 490px;
+	margin-top: 30px;
+}

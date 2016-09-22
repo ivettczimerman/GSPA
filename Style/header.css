@@ -1,0 +1,117 @@
+/* ========= Header ========= */
+
+#header
+{
+	background-image: url("../Pictures/header.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: white;
+	font-size: xx-large;
+	height: 170px;
+	padding: 10px;
+	text-align: left;
+}
+#logoimg
+{
+	height: 100px;
+	position: left top;
+	width: 130px;
+}
+
+
+
+/* ======== Menu Section ======== */
+#menu
+{
+	display: none;
+	margin-left: 320px;
+	margin-right: 300px;
+}
+
+/* ========= NavMenu ========= */
+.menu_buttons
+{
+	font-weight: normal;
+	font-size: small;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#navmenu
+{
+	font-size: small;
+	margin: 0px;
+	padding: 0px;
+}
+.submenu
+{
+	margin: 0px;
+	padding: 0px;
+}
+ul#navmenu, ul.submenu
+{
+	list-style-type: none;
+}
+ul#navmenu li
+{
+	float: left;
+	margin-right: 4px;
+	position: relative;
+	text-align: center;
+	width: 150px;
+
+}
+ul#navmenu a
+{
+	background-color: #004C99;
+	border-radius: 3px;
+	color: #FFF;
+	display: block;
+	height: 25px;
+	line-height: 25px;
+	text-decoration: none;
+	width: 150px;
+}
+ul#navmenu .submenu a
+{
+	margin-top: 1px;
+}
+ul#navmenu li:hover > a
+{
+	background-color: #CCE5FF;
+	color: #004C99;
+}
+ul#navmenu li:hover a:hover
+{
+	background-color: #99CCFF;
+	color: #004C99;
+}
+ul#navmenu ul.submenu
+{
+	display: none;
+	left: 0px;
+	position: absolute;
+	top: 25px;
+}
+ul#navmenu li:hover .submenu
+{
+	display: block;
+}
+
+#logout_btn
+{
+	background-color: #004C99;
+	border:#004C99;
+	margin-left: 200px;
+	margin-top: -25px;
+	font-weight: normal;
+	font-size: small;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 10px;
+
+}
+#logout_btn:hover 
+{
+	background-color: #99CCFF;
+	color: #004C99;
+	border: #99CCFF;
+}

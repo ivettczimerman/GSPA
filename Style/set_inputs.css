@@ -1,0 +1,34 @@
+/* ======== Input Table ======== */
+
+#input_table_title
+{
+	color: #808080;
+	margin-left: 275px;
+	margin-top: 32px;
+}
+#input_table_section
+{
+	display: none;
+	margin-top: 40px;
+}
+#input_table
+{
+	background-color: #E0E0E0;
+	color: #808080;
+	margin-left: 275px;
+	width: 45.5%;
+}
+#apply_input_values
+{
+	background-color: #004C99;
+	border: 1px solid white;
+	font-size: 80%;
+	margin-left: 513px;
+	
+}
+.inputs
+{
+	font-size: medium;
+	margin-left: 15px;
+	margin-top: 15px;
+}

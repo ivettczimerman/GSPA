@@ -1,0 +1,91 @@
+/* ======== Login Box ======== */
+
+#login_box
+{
+	border: 2px solid #004C99;
+	box-shadow: 10px 10px 5px gray;
+	box-sizing: border-box;
+	float: left;
+	font-size: medium;
+	height: 450px;
+	margin-left: 60px;
+	margin-right: 25px;
+	margin-top: 30px;
+	padding: 10px;
+	text-align: center;
+	width: 400px;
+}
+.title_login_register
+{
+	color: #004C99;
+}
+.table_login_register
+{
+	color: #004C99;
+	width: 100%;
+}
+.inputs_register_login
+{
+	margin-top: 15px;
+}
+.button_login_register
+{
+	background-color: #004C99;
+	color: white;
+	float: center;
+	margin-top: 15px;
+}
+#log_in_guest
+{
+	color: lightblue;
+	margin-left: 5px;
+	text-align: left;
+}
+
+/* ======== Register Box======== */
+
+#register_box
+{
+	border: 2px solid #004C99;
+	box-shadow: 10px 10px 5px gray;
+	box-sizing: border-box;
+	float: left;
+	font-size: medium;
+	height: 450px;
+	margin-top: 30px;
+	padding: 10px;
+	text-align: center;
+	width: 400px;
+}
+/* ======== Successful Messages======== */
+.smessages
+{
+	background-color: #DCF0DC;
+	border: 2px solid green;
+	box-sizing: border-box;
+	display: none;
+	float: center;
+	font-size: small;
+	height: 40px;
+	text-align: center;
+	width: 600px;
+	margin-left: 60px;
+	margin-top: 20px;
+	font-weight: bold;
+}
+/* ======== Unsuccessful Messages======== */
+.umessages
+{
+	background-color: #FF9999;
+	border: 2px solid red;
+	box-sizing: border-box;
+	display: none;
+	float: center;
+	font-size: small;
+	height: 40px;
+	margin-left: 60px;
+	margin-top: 20px;
+	font-weight: bold;
+	text-align: center;
+	width: 600px;
+}
